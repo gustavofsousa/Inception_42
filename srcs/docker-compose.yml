@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  nginx:
+    image: nginx
+    build: ./requirements/nginx
+    env_file: .env
+    volumes:
+      - wordpress_files:/www
+    networks:
+      - inception-network
+#   depends_on:
+#      - wordpress
+    ports:
+      - "443:443"
+    restart: on-failure
