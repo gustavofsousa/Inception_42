@@ -1,13 +1,12 @@
 #!/bin/sh
 
-#import ssl certificate
-mkdir -p /etc/ssl/private
-echo "-----BEGIN CERTIFICATE-----" > /etc/ssl/certs/nginx-selfsigned.crt
-echo $SELF_SIGNED_CRT >> /etc/ssl/certs/nginx-selfsigned.crt
-echo -n "-----END CERTIFICATE-----" >> /etc/ssl/certs/nginx-selfsigned.crt
+CERT_PATH="/etc/ssl/certs/nginx-selfsigned.crt"
+KEY_PATH="/etc/ssl/private/nginx-selfsigned.key"
 
-echo "-----BEGIN PRIVATE KEY-----" > /etc/ssl/private/nginx-selfsigned.key
-echo $SELF_SIGNED_KEY >> /etc/ssl/private/nginx-selfsigned.key
-echo -n "-----END PRIVATE KEY-----" >> /etc/ssl/private/nginx-selfsigned.key
+# Generate SSL/TLS certificate and key using OpenSSL
+openssl req -new -newkey rsa:2048 
+            -days 365 
+            -nodes -x509 -keyout "$KEY_PATH" -out "$CERT_PATH" 
+            -subj "/C=US/ST=State/L=City/O=Organization/CN=gusousa.42.fr"
 
 exec nginx
