@@ -2,11 +2,11 @@ version: "3"
 
 services:
   nginx:
-    image: nginx
+    image: lezzzgo
     build: ./requirements/nginx
     env_file: .env
-    volumes:
-      - wordpress_files:/www
+    # volumes:
+    #   - wordpress_files:/www
     networks:
       - inception-network
 #   depends_on:
@@ -14,3 +14,6 @@ services:
     ports:
       - "443:443"
     restart: on-failure
+
+networks:
+  inception-network:
