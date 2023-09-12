@@ -6,7 +6,5 @@ RUN mkdir -p /etc/nginx
 COPY ./conf/nginx.conf /etc/nginx/
 COPY ./tools/setup.sh  /
 
-EXPOSE 443
-
 RUN chmod +x /setup.sh
 ENTRYPOINT ["/setup.sh"]

@@ -2,18 +2,42 @@ version: "3"
 
 services:
   nginx:
-    image: lezzzgo
+    image: nginx
     build: ./requirements/nginx
     env_file: .env
-    # volumes:
-    #   - wordpress_files:/www
+    volumes:
+      - wordpress_files:/www
     networks:
       - inception-network
-#   depends_on:
-#      - wordpress
+    depends_on:
+      - wordpress
     ports:
       - "443:443"
     restart: on-failure
 
+  wordpress:
+    image: wordpress
+    build: ./requirements/wordpress
+    env_file: .env
+    depends_on:
+      - mariadb
+    volumes:
+      - wordpress_files:/www
+    networks:
+      - inception-network
+    ports:
+      - "9000"
+    restart: on-failure
+
+volumes:
+  wordpress_files:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/gusta/projects_42/data/wordpress_files/
+      # device: /home/gusousa/data/wordpress_files/
+
 networks:
   inception-network:
+    name: inception-network
