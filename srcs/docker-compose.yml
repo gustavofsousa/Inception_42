@@ -1,18 +1,14 @@
 version: "3"
 
 services:
-  nginx:
-    image: nginx
-    build: ./requirements/nginx
+  mariadb:
+    image: mariadb
+    build: ./requirements/mariadb
     env_file: .env
     volumes:
-      - wordpress_files:/www
+      - DB:/database
     networks:
       - inception-network
-    depends_on:
-      - wordpress
-    ports:
-      - "443:443"
     restart: on-failure
 
   wordpress:
@@ -29,7 +25,27 @@ services:
       - "9000"
     restart: on-failure
 
+  nginx:
+    image: nginx
+    build: ./requirements/nginx
+    env_file: .env
+    volumes:
+      - wordpress_files:/www
+    networks:
+      - inception-network
+    depends_on:
+      - wordpress
+    ports:
+      - "443:443"
+    restart: on-failure
+
 volumes:
+  DB:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/gusta/projects_42/data/DB/
   wordpress_files:
     driver: local
     driver_opts:
