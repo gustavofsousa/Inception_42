@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 RUN apt update -y \
     && apt upgrade \
-    && apt install php-fpm php-mysql -y \
+    && apt install php7.4-fpm php7.4-mysql -y \
     && apt install wget -y \
     && apt install mariadb-client -y
 
@@ -12,6 +12,8 @@ RUN mv wp-cli.phar /usr/local/bin/wp
 
 
 COPY ./tools/setup.sh /
-COPY ./conf/www.conf /etc/php7/php-fpm.d/
+COPY ./conf/php-fpm.conf /etc/php/7.4/fpm/pool.d/
 
+RUN chown root:root /setup.sh
+RUN chmod +x /setup.sh
 ENTRYPOINT ["/setup.sh"]
