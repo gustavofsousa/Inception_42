@@ -1,11 +1,22 @@
-all: kill build
 
-build: 
-	cd srcs && docker compose build
-	#cd srcs && docker compose up -d
+FILE		= ./srcs/docker-compose.yml
+SERVICES	= mariadb nginx wordpress
 
-kill:
-	@-docker stop $$(docker ps -q) 2>/dev/null
-	@-docker rm $$(docker ps -a -q) 2>/dev/null
+start: ${FILE}
+    @docker compose -f ${FILE} start
 
-.PHONY: all build kill nginx
+stop: ${FILE}
+    docker compose -f ${FILE} stop
+
+status: ${FILE}
+    @docker compose -f ${FILE} ps 
+    @echo "---"
+    @docker stats --no-stream ${SERVICES}
+
+logs:
+    @$(eval CONTAINERS := $(filter-out $@,$(MAKECMDGOALS)))
+    @docker compose -f ${FILE} logs --tail 50 --follow --timestamps ${CONTAINERS} 
+
+run:
+    @$(eval CONTAINER := $(filter-out $@,$(MAKECMDGOALS)))
+    @docker exec -it ${CONTAINER} /bin/bash 
