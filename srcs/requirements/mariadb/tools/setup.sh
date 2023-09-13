@@ -12,4 +12,4 @@ if [ ! -d "/var/lib/mysql/$SQL_DATABASE" ]; then
     mysqladmin -u root shutdown
 fi
 
-exec mysqld_safe --datadir=/database
+exec mysqld_safe --datadir=/var/lib/mysql

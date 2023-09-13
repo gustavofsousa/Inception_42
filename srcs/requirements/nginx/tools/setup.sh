@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 # Generate SSL/TLS certificate and key using OpenSSL
 openssl req -new -newkey rsa:2048 \
             -days 365 \

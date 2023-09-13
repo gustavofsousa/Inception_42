@@ -6,7 +6,7 @@ services:
     build: ./requirements/mariadb
     env_file: .env
     volumes:
-      - DB:/database
+      - DB:/var/lib/mysql
     networks:
       - inception-network
     restart: on-failure
