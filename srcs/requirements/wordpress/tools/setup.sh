@@ -30,6 +30,8 @@ fi
 
 # Set appropriate permissions
 chmod -R 755 "$WORDPRESS_DIR"
+mkdir -p /run/php/
+chown www-data:www-data /run/php/
 
 # Start PHP-FPM
 exec php-fpm7.4 -F
