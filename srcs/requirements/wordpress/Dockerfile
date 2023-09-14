@@ -2,6 +2,7 @@ FROM debian:bullseye
 
 RUN apt update -y \
     && apt upgrade \
+    && apt install apt-utils \
     && apt install php-fpm php-mysql -y \
     && apt install wget -y \
     && apt install mariadb-client -y

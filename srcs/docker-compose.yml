@@ -45,14 +45,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/gusta/projects_42/data/DB/
+      device: /home/gusousa/data/DB/
   wordpress_files:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/gusta/projects_42/data/wordpress_files/
-      # device: /home/gusousa/data/wordpress_files/
+      device: /home/gusousa/data/wordpress_files/
 
 networks:
   inception-network:
