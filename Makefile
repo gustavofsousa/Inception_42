@@ -35,4 +35,4 @@ run:
 clean:
 	docker rmi -f $$(docker images -a -q)
 
-restart: remove clean up
+restart: remove clean create up
