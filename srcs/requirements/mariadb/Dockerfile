@@ -6,6 +6,6 @@ RUN apt update \
 RUN mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
 
 COPY conf/mariadb-server.cnf	/etc/mysql/mariadb.conf.d/mariadb-server.cnf
-COPY ./tools/setup.sh /bin
 
-ENTRYPOINT ["setup.sh"]
+COPY ./tools/setup.sh /usr/local/bin/
+ENTRYPOINT ["/bin/sh", "setup.sh"]

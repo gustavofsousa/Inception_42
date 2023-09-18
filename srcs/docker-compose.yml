@@ -3,6 +3,7 @@ version: "3"
 services:
   mariadb:
     image: mariadb
+    container_name: db_cont
     build: ./requirements/mariadb
     env_file: .env
     volumes:
@@ -13,6 +14,7 @@ services:
 
   wordpress:
     image: wordpress
+    container_name: wp_cont
     build: ./requirements/wordpress
     env_file: .env
     depends_on:
@@ -27,6 +29,7 @@ services:
 
   nginx:
     image: nginx
+    container_name: ng_cont
     build: ./requirements/nginx
     env_file: .env
     volumes:
@@ -45,13 +48,17 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/gusousa/data/DB/
+      device: /home/gusta/data/DB/
+#      device: /home/gusousa/data/DB/
+
   wordpress_files:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/gusousa/data/wordpress_files/
+      device: /home/gusta/data/wordpress_files/
+      #device: /home/gusousa/data/wordpress_files/
+
 
 networks:
   inception-network:
