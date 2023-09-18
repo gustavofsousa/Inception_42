@@ -1,17 +1,14 @@
-FROM debian:bullseye
+FROM alpine:3.14
 
-RUN apt update -y \
-    && apt upgrade \
-    && apt install apt-utils \
-    && apt install php-fpm php-mysql -y \
-    && apt install wget -y \
-    && apt install mariadb-client -y
+RUN apk add --no-cache php7 php7-fpm php7-mysqli php7-phar \
+php7-json php7-mbstring
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 
-COPY ./conf/php-fpm.conf /etc/php/7.4/fpm/pool.d/
-COPY ./tools/setup.sh /usr/local/bin
+COPY ./tools/setup.sh /
+RUN chmod +x /setup.sh
+COPY ./conf/php-fpm.conf /etc/php7/php-fpm.d/
 
-ENTRYPOINT ["sh", "/usr/local/bin/setup.sh"]
+ENTRYPOINT ["/setup.sh"]
