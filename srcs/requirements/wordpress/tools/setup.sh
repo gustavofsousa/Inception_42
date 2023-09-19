@@ -37,7 +37,7 @@ fi
 echo "Leaving"
 
 # Set appropriate permissions
-chmod -R 755 "$WORDPRESS_DIR"
+chmod -R 777 "$WORDPRESS_DIR"
 mkdir -p /run/php/
 chown www-data:www-data /run/php/
 

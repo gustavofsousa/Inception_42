@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "start nginx"
+
 if [ ! -d "/var/lib/mysql/$DB_NAME" ]; then
 	mysqld_safe --datadir=/var/lib/mysql &
 	sleep 1
@@ -12,4 +14,5 @@ if [ ! -d "/var/lib/mysql/$DB_NAME" ]; then
     mysqladmin -u root shutdown
 fi
 
+echo "All done"
 exec mysqld_safe --datadir=/var/lib/mysql

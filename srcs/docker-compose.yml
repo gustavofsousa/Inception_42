@@ -33,7 +33,7 @@ services:
     build: ./requirements/nginx
     env_file: .env
     volumes:
-      - wordpress_files:/www
+      - wordpress_files:/www/wordpress
     networks:
       - inception-network
     depends_on:
