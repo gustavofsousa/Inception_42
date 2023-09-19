@@ -5,7 +5,7 @@ echo "check if it already exist"
 if [ ! -f "$WORDPRESS_DIR/wp-config.php" ]; then
     # Download and extract WordPress
     echo "ready to install"
-    wp core download --path="$WORDPRESS_DIR"
+    wp core download --path="$WORDPRESS_DIR" --allow-root
     if [ $? -ne 0 ]; then
         echo "WordPress download failed."
         exit 1
@@ -24,13 +24,13 @@ if [ ! -f "$WORDPRESS_DIR/wp-config.php" ]; then
     sed -i "s/localhost/$DB_HOST:3306/g" wp-config.php
 
     # Install WordPress
-    wp --allow-root core install --url="$DOMAIN_NAME" --title="$SITE_TITLE" \
+    wp core install --url="$DOMAIN_NAME" --title="$SITE_TITLE" \
         --admin_user="$ADMIN_USER" --admin_password="$ADMIN_PASSWORD" \
-        --admin_email="$ADMIN_EMAIL" --skip-email
+        --admin_email="$ADMIN_EMAIL" --skip-email --allow-root
 
     # Create WordPress users
-    wp --allow-root user create "$EDITOR_USER" "$EDITOR_EMAIL" --role='editor' --user_pass="$EDITOR_PASSWORD"
-    wp user --allow-root create "$SUBSCRIBER_USER" "$SUBSCRIBER_EMAIL" --role='subscriber' --user_pass="$SUBSCRIBER_PASSWORD"
+    wp user create "$EDITOR_USER" "$EDITOR_EMAIL" --role='editor' --user_pass="$EDITOR_PASSWORD" --allow-root
+    wp user create "$SUBSCRIBER_USER" "$SUBSCRIBER_EMAIL" --role='subscriber' --user_pass="$SUBSCRIBER_PASSWORD" --allow-root
 
     echo "all set done in wordpress"
 fi
