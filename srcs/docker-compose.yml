@@ -10,6 +10,8 @@ services:
       - DB:/var/lib/mysql
     networks:
       - inception-network
+    ports:
+      - "3306"
     restart: on-failure
 
   wordpress:
