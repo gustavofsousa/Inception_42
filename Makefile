@@ -1,28 +1,24 @@
 FILE = ./srcs/docker-compose.yml
 
-start:
-	docker-compose -f $(FILE) start
+all:
+	@docker compose -f $(FILE) up -d --build
 
-up: $(FILE)
-	docker-compose -f $(FILE) up -d
+up:
+	@docker compose -f $(FILE) up -d
 
-create: $(FILE)
-	docker-compose -f $(FILE) build
+down:
+	@docker compose -f $(FILE) stop
 
-images:
-	docker images
+re: clean all
 
-remove:
-	docker-compose -f $(FILE) down --remove-orphans
-	docker volume rm -f srcs_DB srcs_wordpress_files
-
-stop:
-	docker-compose -f $(FILE) stop
-
-status:
-	docker-compose -f $(FILE) ps
-	@echo "---"
-	docker stats --no-stream $(SERVICES)
+clean:
+	@docker stop $$(docker ps -qa);\
+	docker rm $$(docker ps -qa);\
+	docker rmi -f $$(docker images -qa);\
+	docker volume rm $$(docker volume ls -q);\
+	sudo rm -rf ~/data/DB ~/data/wordpress_files
+	@mkdir -p ~/data/DB ~/data/wordpress_files
+#docker network rm $$(docker network ls -q);\
 
 logs:
 	@$(eval CONTAINERS := $(filter-out $@,$(MAKECMDGOALS)))
@@ -32,9 +28,4 @@ run:
 	@$(eval CONTAINER := $(filter-out $@,$(MAKECMDGOALS)))
 	docker exec -it $(CONTAINER) /bin/bash
 
-clean:
-	docker rmi -f $$(docker images -a -q)
-	sudo rm -rf ~/data/DB ~/data/wordpress_files
-	mkdir -p ~/data/DB ~/data/wordpress_files
-
-restart: remove clean create up
+.PHONY: all re down clean
