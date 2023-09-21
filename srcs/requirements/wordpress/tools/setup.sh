@@ -20,7 +20,7 @@ if [ ! -f "$WORDPRESS_DIR/wp-config.php" ]; then
     sed -i "s/database_name_here/$DB_NAME/g" wp-config.php
     sed -i "s/username_here/$DB_USER/g" wp-config.php
     sed -i "s/password_here/$DB_PASSWORD/g" wp-config.php
-    sed -i "s/localhost/$DB_HOST:3306/g" wp-config.php
+    sed -i "s/localhost/$DB_HOST/g" wp-config.php
 
     # Install WordPress
     wp core install --url="$DOMAIN_NAME" --title="$SITE_TITLE" \

@@ -15,4 +15,4 @@ if [ ! -d "/var/lib/mysql/$DB_NAME" ]; then
 fi
 
 echo "All done"
-exec mysqld_safe --datadir=/var/lib/mysql
+exec mysqld_safe --bind-address=0.0.0.0

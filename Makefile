@@ -34,5 +34,7 @@ run:
 
 clean:
 	docker rmi -f $$(docker images -a -q)
+	sudo rm -rf ~/data/DB ~/data/wordpress_files
+	mkdir -p ~/data/DB ~/data/wordpress_files
 
 restart: remove clean create up
