@@ -50,16 +50,14 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/gusta/data/DB/
-#      device: /home/gusousa/data/DB/
+      device: /home/gusousa/data/DB/
 
   wordpress_files:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/gusta/data/wordpress_files/
-      #device: /home/gusousa/data/wordpress_files/
+      device: /home/gusousa/data/wordpress_files/
 
 
 networks:

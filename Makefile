@@ -16,8 +16,8 @@ clean:
 	docker rm $$(docker ps -qa);\
 	docker rmi -f $$(docker images -qa);\
 	docker volume rm $$(docker volume ls -q);\
-	sudo rm -rf ~/data/DB ~/data/wordpress_files
-	@mkdir -p ~/data/DB ~/data/wordpress_files
+	sudo rm -rf ~/gusousa/data/DB ~/gusousa/data/wordpress_files
+	@mkdir -p ~/gusousa/data/DB ~/gusousa/data/wordpress_files
 #docker network rm $$(docker network ls -q);\
 
 logs:
