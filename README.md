@@ -70,8 +70,8 @@ If you encounter issues or errors, please open an Issue.
 ## Author
 Gustavo F Sousa
 
-- Github: [@GSousa101](https://github.com/gustavofsousa)
-- Linkedin: [@gustavo-sousa-dt](https://www.linkedin.com/in/gustavofsousa/)
+- Github: [@gustavofsousa](https://github.com/gustavofsousa)
+- Linkedin: [@gustavofsousa](https://www.linkedin.com/in/gustavofsousa/)
 
 Give a ⭐ if this project has helped you!
 
