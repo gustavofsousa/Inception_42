@@ -6,6 +6,9 @@
 Before you begin, ensure that you have the following prerequisites installed:
 
     curl -fsSL https://get.docker.com/ | sh
+    sudo usermod -aG docker <your_username>
+
+Change <your_username> for the right value.
 
 ## Getting Started
 
@@ -17,29 +20,17 @@ Clone the repository to your local machine:
 
 Create a .env file with the necessary environment variables. You can use the provided .env.example file as a template and adjust the values as needed:
 
-    cd src
-    mv src/.env.example src/.env
+    cp src/.env.example src/.env
     vim src/.env
 
 Write your credencials in .env file.
 
-Build and start the Docker:
+## Commands
 
-    make
+To build and start the Docker, run:
 
+    make all
 This command will create and start the MariaDB, WordPress, and Nginx containers in the background.
-
-Access your WordPress site in your web browser by visiting http://localhost:443
-
-## Project Structure
-
-The project directory is structured as follows:
-
-+ docker-compose.yml: Docker Compose configuration file that defines the services, volumes, and networks for the stack.
-+ requirements/: Directory containing Dockerfiles and other configuration files for each service (MariaDB, WordPress, Nginx).
-+ data/: Directory containing data volumes for MariaDB and WordPress data persistence.
-
-## Others commands
 
 To stop and remove the Docker containers, run:
 
@@ -47,11 +38,29 @@ To stop and remove the Docker containers, run:
     
 To check status of the ruining containers, run:
 
-    make stats
+    make status
 
 To remove all containers, networks, and volumes created by Docker Compose, run:
 
     make clean
+
+To see the logs, run:
+
+    make logs <service_name>
+
+Access your WordPress site in your web browser by visiting:
+    
+    https://localhost:443
+
+ The warning SSL certificate is expected, just continue.
+
+## Project Structure
+
+The project directory is structured as follows:
+
++ ./src/docker-compose.yml: Docker Compose configuration file that defines the services, volumes, and networks for the stack.
++ ./src/requirements/: Directory containing Dockerfiles and other configuration files for each service (MariaDB, WordPress, Nginx).
++ /home/data_inception/: Directory containing data volumes for MariaDB and WordPress data persistence.
 
 ## Troubleshooting
 

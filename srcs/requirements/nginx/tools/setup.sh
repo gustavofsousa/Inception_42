@@ -1,10 +1,10 @@
 #!/bin/sh
 
+mkdir -p "/etc/ssl/certs/"
+mkdir -p "/etc/ssl/private/"
 # Generate SSL/TLS certificate and key using OpenSSL
-openssl req -new -newkey rsa:2048 \
-            -days 365 \
-            -nodes -x509 -keyout "$KEY_PATH" -out "$CERT_PATH" \
-            -subj "/C=US/ST=State/L=City/ O=Organization/CN=gusousa.42.fr" \
-            -passout pass:"123"
+	openssl genrsa -out $KEY_PATH 2048
+	openssl req -new -x509 -key $KEY_PATH -out $CERT_PATH -days 365 -subj "/CN=$DOMAIN_NAME"
 
+echo "SSL generated, executing nginx now"
 exec nginx

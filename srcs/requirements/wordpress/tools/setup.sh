@@ -1,8 +1,10 @@
 #!/bin/sh
 
-if [ ! -d "$WORDPRESS_DIR" ]; then
+echo "check if it already exist"
+if [ ! -f "$WORDPRESS_DIR/wp-config.php" ]; then
     # Download and extract WordPress
-    wp core download --path="$WORDPRESS_DIR"
+    echo "ready to install"
+    wp core download --path="$WORDPRESS_DIR" --allow-root
     if [ $? -ne 0 ]; then
         echo "WordPress download failed."
         exit 1
@@ -10,6 +12,8 @@ if [ ! -d "$WORDPRESS_DIR" ]; then
 
     # Change directory to WordPress installation
     cd "$WORDPRESS_DIR"
+    echo "switch to $WORDPRESS_DIR"
+
 
     # Configure wp-config.php
     mv wp-config-sample.php wp-config.php
@@ -21,15 +25,19 @@ if [ ! -d "$WORDPRESS_DIR" ]; then
     # Install WordPress
     wp core install --url="$DOMAIN_NAME" --title="$SITE_TITLE" \
         --admin_user="$ADMIN_USER" --admin_password="$ADMIN_PASSWORD" \
-        --admin_email="$ADMIN_EMAIL" --skip-email
+        --admin_email="$ADMIN_EMAIL" --skip-email --allow-root
 
     # Create WordPress users
-    wp user create "$EDITOR_USER" "$EDITOR_EMAIL" --role='editor' --user_pass="$EDITOR_PASSWORD"
-    wp user create "$SUBSCRIBER_USER" "$SUBSCRIBER_EMAIL" --role='subscriber' --user_pass="$SUBSCRIBER_PASSWORD"
+    wp user create "$EDITOR_USER" "$EDITOR_EMAIL" --role='editor' --user_pass="$EDITOR_PASSWORD" --allow-root
+    wp user create "$SUBSCRIBER_USER" "$SUBSCRIBER_EMAIL" --role='subscriber' --user_pass="$SUBSCRIBER_PASSWORD" --allow-root
+
+    echo "all set done in wordpress"
 fi
 
+echo "Leaving"
+
 # Set appropriate permissions
-chmod -R 755 "$WORDPRESS_DIR"
+chmod -R 777 "$WORDPRESS_DIR"
 mkdir -p /run/php/
 chown www-data:www-data /run/php/
 
