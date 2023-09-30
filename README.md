@@ -67,7 +67,7 @@ The project directory is structured as follows:
 If you encounter issues or errors, please open an Issue.
 
 
-## About me
+## Author
 Gustavo F Sousa
 
 - Github: [@GSousa101](https://github.com/gustavofsousa)
